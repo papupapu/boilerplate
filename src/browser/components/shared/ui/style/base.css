@@ -1,0 +1,6 @@
+@import "vars";
+@import "reset";
+
+body{
+  background-color:var(--body-background);
+}
