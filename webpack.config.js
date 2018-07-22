@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/browser/index.js',
   },
   output: {
     filename: '[name][chunkhash].js',
@@ -53,7 +53,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin('build', {}),
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: './src/browser/index.html',
       filename: 'index.html',
       hash: true,
     }),
