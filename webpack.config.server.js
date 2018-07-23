@@ -1,18 +1,22 @@
 const path = require('path');
 
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const NodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/client/index.js',
+    main: './src/server/index.js',
   },
   output: {
     filename: '[name][chunkhash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
+  },
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
   },
   module: {
     rules: [
@@ -51,16 +55,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin('build', {}),
-    new HtmlWebPackPlugin({
-      template: './src/client/index.html',
-      filename: 'index.html',
-      hash: true,
-    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].css',
     }),
     new WebpackMd5Hash(),
   ],
+  externals: NodeExternals(),
+  devtool: 'source-map',
 };

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import UIHandler from '../shared/ui/UIHandler';
-import Page from '../shared/ui/Page';
+import UIHandler from '../ui/UIHandler';
+import Page from '../ui/Page';
 
 import './style/app.css';
 
-class App extends Component {
+class NotCool extends Component {
   static propTypes = {
     toggleSiteHiddenComponents: PropTypes.func,
   }
@@ -30,7 +30,7 @@ class App extends Component {
       >
         <div>
           <p>
-            yeah, supercool!
+            not cool!!!
           </p>
         </div>
       </Page>
@@ -38,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default UIHandler(App);
+export default UIHandler(NotCool);
