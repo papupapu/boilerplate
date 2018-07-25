@@ -1,4 +1,4 @@
-@import "../../shared/ui/style/vars";
+@import "../../../ui/style/vars";
 
 p {
   color: var(--gp-background);

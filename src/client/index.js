@@ -1,6 +1,19 @@
+
 import React from 'react';
-import ReactDom from 'react-dom';
+import { hydrate } from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import Router from '../common/router/Router';
+import store from '../common/redux/store';
+import AppRouter from '../common/router/Router';
 
-ReactDom.render(<Router />, document.querySelector('#app'));
+hydrate(
+  (
+    <Provider store={store}>
+      <Router>
+        <AppRouter />
+      </Router>
+    </Provider>
+  ),
+  document.getElementById('root'),
+);

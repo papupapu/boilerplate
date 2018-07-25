@@ -2,14 +2,19 @@ const path = require('path');
 
 const NodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/server/index.js',
+    main: ['babel-polyfill', './src/server/index.js'],
+  },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
   output: {
-    filename: '[name][chunkhash].js',
+    filename: 'server.js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
   },
@@ -23,13 +28,6 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
@@ -42,25 +40,17 @@ module.exports = {
         ],
       },
       {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader',
-          options: { minimize: true },
-        },
-      },
-      {
         test: /\.css$/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
     ],
   },
+  externals: NodeExternals(),
+  devtool: 'cheap-module-source-map',
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: 'style.css',
       chunkFilename: '[id].css',
     }),
-    new WebpackMd5Hash(),
   ],
-  externals: NodeExternals(),
-  devtool: 'source-map',
 };

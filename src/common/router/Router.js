@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import routeOptions from './routes';
 
@@ -14,11 +14,9 @@ const routes = routeOptions.routes.map(
 );
 
 const AppRouter = () => (
-  <Router>
-    <Switch>
-      {routes}
-    </Switch>
-  </Router>
+  <Switch>
+    {routes}
+  </Switch>
 );
 
 export default AppRouter;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import UIHandler from '../ui/UIHandler';
-import Page from '../ui/Page';
+import UIHandler from '../../ui/UIHandler';
+import Page from '../../ui/Page';
 
 import './style/app.css';
 
@@ -30,7 +30,7 @@ class NotCool extends Component {
       >
         <div>
           <p>
-            not cool!!!
+            shit, not cool!!!
           </p>
         </div>
       </Page>

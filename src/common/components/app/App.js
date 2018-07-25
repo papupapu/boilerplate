@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import UIHandler from '../ui/UIHandler';
-import Page from '../ui/Page';
+import UIHandler from '../../ui/UIHandler';
+import Page from '../../ui/Page';
 
 import './style/app.css';
 
@@ -29,6 +30,11 @@ class App extends Component {
         isFullpage={false}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
+        <Helmet>
+          <title>
+            yeeeeee
+          </title>
+        </Helmet>
         <div>
           <p>
             <Link to="/notcool">

@@ -5,17 +5,17 @@ export function userDevice() {
     height: document.documentElement.clientHeight,
   };
   const touchscreen = 'ontouchstart' in window || navigator.msMaxTouchPoints > 0;
-  let type = 'xl';
+  let screenSize = 'xl';
   if (viewport.width < 375) {
-    type = 'xs';
+    screenSize = 'xs';
   } else if (viewport.width < 768) {
-    type = 'sm';
+    screenSize = 'sm';
   } else if (viewport.width < 991) {
-    type = 'md';
+    screenSize = 'md';
   } else if (viewport.width < 1199) {
-    type = 'lg';
+    screenSize = 'lg';
   }
-  return { viewport, touchscreen, type };
+  return { viewport, touchscreen, screenSize };
 }
 
 // Scroll event handlers for smartphones and tablets
