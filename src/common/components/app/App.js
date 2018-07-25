@@ -10,10 +10,12 @@ import './style/app.css';
 
 class App extends Component {
   static propTypes = {
+    pageTemplate: PropTypes.string,
     toggleSiteHiddenComponents: PropTypes.func,
   }
 
   static defaultProps = {
+    pageTemplate: '',
     toggleSiteHiddenComponents: () => {},
   }
 
@@ -24,10 +26,10 @@ class App extends Component {
   }
 
   render() {
-    const { toggleSiteHiddenComponents } = this.props;
+    const { pageTemplate, toggleSiteHiddenComponents } = this.props;
     return (
       <Page
-        isFullpage={false}
+        pageTemplate={pageTemplate}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
         <Helmet>

@@ -5,24 +5,24 @@ import './style/vars.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
-  isFullpage: PropTypes.bool,
+  pageTemplate: PropTypes.string,
   toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
-  isFullpage: true,
+  pageTemplate: '',
   toggleSiteHiddenComponents: () => {},
 };
 
 const Page = (
   {
     children,
-    isFullpage,
+    pageTemplate,
     toggleSiteHiddenComponents,
   },
 ) => {
-  if (isFullpage) {
+  if (pageTemplate === 'fullpage') {
     return (
       <div className="app">
         {children}

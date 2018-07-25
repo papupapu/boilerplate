@@ -5,13 +5,15 @@ export default {
   routes: [
     {
       path: '/',
-      component: App,
       exact: true,
+      component: App,
+      pageTemplate: '',
     },
     {
       path: '/notcool',
-      component: NotCool,
       exact: true,
+      component: NotCool,
+      pageTemplate: 'fullpage',
     },
   ],
 };

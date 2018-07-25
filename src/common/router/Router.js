@@ -7,10 +7,17 @@ const routes = routeOptions.routes.map(
   (
     {
       path,
-      component,
       exact,
+      component,
     },
-  ) => <Route key={`${Math.random()}ROUTE_`} exact={exact} path={path} component={component} />,
+  ) => (
+    <Route
+      key={`${Math.random()}ROUTE_`}
+      path={path}
+      exact={exact}
+      component={component}
+    />
+  ),
 );
 
 const AppRouter = () => (
