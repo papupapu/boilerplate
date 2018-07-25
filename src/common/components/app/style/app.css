@@ -1,5 +1,5 @@
 @import "../../../ui/style/vars";
 
-p {
-  color: var(--gp-background);
+a, button, p {
+  font-size: 1.6rem; line-height: 2.4rem; font-family: var(--font-family-Roboto); color: var(--blueStone); text-decoration: none;
 }

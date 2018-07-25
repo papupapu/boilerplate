@@ -35,13 +35,11 @@ class App extends Component {
             yeeeeee
           </title>
         </Helmet>
-        <div>
-          <p>
-            <Link to="/notcool">
-              yeah, supercool!
-            </Link>
-          </p>
-        </div>
+        <p>
+          <Link to="/notcool">
+            yeah, supercool!
+          </Link>
+        </p>
       </Page>
     );
   }

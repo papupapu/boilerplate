@@ -30,21 +30,26 @@ const Page = (
     );
   }
   return (
-    <div className="app">
-      <div>
+    <div className="wrap">
+      <div id="header">
         <button
           type="button"
+          className="modal_handle"
           onClick={(e) => {
             e.preventDefault();
-            toggleSiteHiddenComponents();
+            toggleSiteHiddenComponents(e, {});
           }}
         >
           header
         </button>
       </div>
-      {children}
-      <div>
-        footer
+      <div className="content">
+        {children}
+      </div>
+      <div id="footer">
+        <p>
+          footer
+        </p>
       </div>
     </div>
   );
