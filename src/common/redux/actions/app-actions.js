@@ -6,11 +6,14 @@ function getArticleFromAPI(id) {
   return Request.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
 }
 
-function getArticleTitle(id) {
+export function getArticleTitle(params) {
   return async (dispatch) => {
-    const { data } = await getArticleFromAPI(id);
+    const { data } = await getArticleFromAPI(params.id);
+    data.pageTemplate = params.pageTemplate;
     dispatch({ type: Types.GET_ARTICLE, payload: data });
   };
 }
 
-export default getArticleTitle;
+export function genericAction() {
+  return {};
+}

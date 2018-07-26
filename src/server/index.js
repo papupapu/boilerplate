@@ -26,7 +26,7 @@ app.get(
       const store = createStore(reducers, {}, applyMiddleware(thunk));
 
       let foundPath = null;
-      let { component } = routeOptions.routes.find(
+      let { component, fetchParams, pageTemplate } = routeOptions.routes.find(
         ({ path, exact }) => {
           foundPath = matchPath(
             req.url,
@@ -42,13 +42,16 @@ app.get(
 
       if (!component) {
         component = {};
+        fetchParams = {};
+        pageTemplate = '';
       }
 
       if (!component.fetchData) {
         component.fetchData = () => new Promise(resolve => resolve());
       }
 
-      await component.fetchData({ store, params: (foundPath ? foundPath.params : {}) });
+      const params = await fetchParams(req.url);
+      await component.fetchData({ store, params, pageTemplate });
 
       const preloadedState = store.getState();
 
@@ -60,7 +63,8 @@ app.get(
           </Router>
         </Provider>,
       );
-      const helmetData = Helmet.renderStatic();
+
+      const helmetData = Helmet.rewind();
 
       if (context.url) {
         res.redirect(context.status, `http://${req.headers.host}${context.url}`);

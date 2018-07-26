@@ -4,9 +4,10 @@ import middleware from './middleware';
 import reducers from './reducers/combine';
 
 let preloadedState = {};
-if (typeof window !== 'undefined' && window.__PRELOADEDSTATE__) {
-  preloadedState = window.__PRELOADEDSTATE__;
-  delete window.__PRELOADEDSTATE__;
+
+if (typeof window !== 'undefined' && window.__PRELOADED_STATE__) {
+  preloadedState = window.__PRELOADED_STATE__;
+  delete window.__PRELOADED_STATE__;
 }
 
 const composeEnhancers = (typeof window !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;

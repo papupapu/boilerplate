@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
+import { getArticleTitle } from '../../redux/actions/app-actions';
+
 import './style/app.css';
 
+const propTypes = {
+  app: PropTypes.instanceOf(Object),
+  toggleSiteHiddenComponents: PropTypes.func,
+};
+
+const defaultProps = {
+  app: {},
+  toggleSiteHiddenComponents: () => {},
+};
+
 class NotCool extends Component {
-  static propTypes = {
-    pageTemplate: PropTypes.string,
-    toggleSiteHiddenComponents: PropTypes.func,
-  }
-
-  static defaultProps = {
-    pageTemplate: '',
-    toggleSiteHiddenComponents: () => {},
-  }
-
   constructor(props) {
     super(props);
 
@@ -26,20 +27,17 @@ class NotCool extends Component {
   }
 
   render() {
-    const { pageTemplate, toggleSiteHiddenComponents } = this.props;
+    const { app, toggleSiteHiddenComponents } = this.props;
+    const title = `${app.id} - ${app.title}`;
     return (
       <Page
-        pageTemplate={pageTemplate}
+        title={title}
+        pageTemplate={app.pageTemplate}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
-        <Helmet>
-          <title>
-            noooooooo
-          </title>
-        </Helmet>
         <p>
-          <Link to="/">
-            shit, not cool!!!
+          <Link to="/notcool">
+            yeah, supercool!
           </Link>
         </p>
       </Page>
@@ -47,4 +45,6 @@ class NotCool extends Component {
   }
 }
 
-export default UIHandler(NotCool);
+NotCool.propTypes = propTypes;
+NotCool.defaultProps = defaultProps;
+export default UIHandler(NotCool, getArticleTitle);

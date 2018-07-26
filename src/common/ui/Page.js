@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Helmet } from 'react-helmet';
+
 import './style/vars.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
+  title: PropTypes.string,
   pageTemplate: PropTypes.string,
   toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
+  title: '',
   pageTemplate: '',
   toggleSiteHiddenComponents: () => {},
 };
@@ -18,6 +22,7 @@ const defaultProps = {
 const Page = (
   {
     children,
+    title,
     pageTemplate,
     toggleSiteHiddenComponents,
   },
@@ -31,6 +36,11 @@ const Page = (
   }
   return (
     <div className="wrap">
+      <Helmet>
+        <title>
+          {title}
+        </title>
+      </Helmet>
       <div id="header">
         <button
           type="button"

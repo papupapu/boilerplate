@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
+import { getArticleTitle } from '../../redux/actions/app-actions';
+
 import './style/app.css';
 
+const propTypes = {
+  app: PropTypes.instanceOf(Object),
+  toggleSiteHiddenComponents: PropTypes.func,
+};
+
+const defaultProps = {
+  app: {},
+  toggleSiteHiddenComponents: () => {},
+};
+
 class App extends Component {
-  static propTypes = {
-    pageTemplate: PropTypes.string,
-    toggleSiteHiddenComponents: PropTypes.func,
-  }
-
-  static defaultProps = {
-    pageTemplate: '',
-    toggleSiteHiddenComponents: () => {},
-  }
-
   constructor(props) {
     super(props);
 
@@ -26,17 +27,14 @@ class App extends Component {
   }
 
   render() {
-    const { pageTemplate, toggleSiteHiddenComponents } = this.props;
+    const { app, toggleSiteHiddenComponents } = this.props;
+    const title = `${app.id} - ${app.title}`;
     return (
       <Page
-        pageTemplate={pageTemplate}
+        title={title}
+        pageTemplate={app.pageTemplate}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
-        <Helmet>
-          <title>
-            yeeeeee
-          </title>
-        </Helmet>
         <p>
           <Link to="/notcool">
             yeah, supercool!
@@ -47,4 +45,6 @@ class App extends Component {
   }
 }
 
-export default UIHandler(App);
+App.propTypes = propTypes;
+App.defaultProps = defaultProps;
+export default UIHandler(App, getArticleTitle);

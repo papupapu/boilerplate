@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo `hello world!`",
     "start": "webpack --mode development --progress --colors --config webpack.config.js && webpack --mode development  --progress --colors --config webpack.config.server.js && node build/server.js",
-    "start:prod": "webpack --mode production --progress --colors --config webpack.config.js && webpack --mode production  --progress --colors --config webpack.config.server.js && node build/server.js",    
+    "start:prod": "webpack --mode production --progress --colors --config webpack.config.js && webpack --mode production  --progress --colors --config webpack.config.server.js && node build/server.js",
     "build:client": "webpack --progress --colors --config webpack.config.js",
     "build:server": "webpack --progress --colors --config webpack.config.server.js"
   },

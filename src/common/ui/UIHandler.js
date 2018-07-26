@@ -2,8 +2,12 @@ import React from 'react';
 
 import { userDevice } from './helpers/DOMHelpers';
 
-export default function UIHandler(Content) {
-  class uiHandler extends React.Component {
+export default function UIHandler(Content, fetchFunction) {
+  class UiHandler extends React.Component {
+    static fetchData({ store, params }) {
+      return store.dispatch(fetchFunction(params));
+    }
+
     constructor(props) {
       super(props);
 
@@ -118,5 +122,5 @@ export default function UIHandler(Content) {
       );
     }
   }
-  return uiHandler;
+  return UiHandler;
 }
