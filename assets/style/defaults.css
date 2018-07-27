@@ -37,6 +37,10 @@ html{
   grid-row: 3;
 }
 
+svg{
+  pointer-events:none;
+}
+
 @media screen and (min-width: 576px) {
 
   .wrap{

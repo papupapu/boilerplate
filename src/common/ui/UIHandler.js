@@ -13,6 +13,7 @@ export default function UIHandler(Content, fetchFunction) {
 
       this.state = {
         device: {},
+        modal: false,
       };
 
       this.modalType = '';
@@ -89,6 +90,7 @@ export default function UIHandler(Content, fetchFunction) {
           if (updateModalState) {
             this.modalType = !modal ? evt.target.getAttribute('data-action') : '';
             this.modalData = !modal && obj !== null ? obj : {};
+            this.setState({ modal: !modal });
           }
         } else { // overlayer
           this.uiHiddenComponents.forEach(
@@ -105,6 +107,7 @@ export default function UIHandler(Content, fetchFunction) {
           if (modal) {
             this.modalType = '';
             this.modalData = {};
+            this.setState({ modal: false });
           }
         }
       }

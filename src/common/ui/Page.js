@@ -3,19 +3,28 @@ import PropTypes from 'prop-types';
 
 import { Helmet } from 'react-helmet';
 
+import Modal from './modal/Modal';
+import Overlayer from './overlayer/Overlayer';
+
 import './style/vars.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
-  pageTemplate: PropTypes.string,
   title: PropTypes.string,
+  pageTemplate: PropTypes.string,
+  modal: PropTypes.bool,
+  modalType: PropTypes.string,
+  modalData: PropTypes.instanceOf(Object),
   toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
-  pageTemplate: '',
   title: '',
+  pageTemplate: '',
+  modal: false,
+  modalType: '',
+  modalData: {},
   toggleSiteHiddenComponents: () => {},
 };
 
@@ -24,6 +33,9 @@ const Page = (
     children,
     title,
     pageTemplate,
+    modal,
+    modalType,
+    modalData,
     toggleSiteHiddenComponents,
   },
 ) => {
@@ -66,6 +78,17 @@ const Page = (
           footer
         </p>
       </div>
+      {
+        modal
+        && (
+          <Modal
+            type={modalType}
+            data={modalData}
+            close={toggleSiteHiddenComponents}
+          />
+        )
+      }
+      {Overlayer({ action: toggleSiteHiddenComponents })}
     </div>
   );
 };

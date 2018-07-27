@@ -13,18 +13,22 @@ import './style/app.css';
 const propTypes = {
   shouldUpdate: PropTypes.bool,
   pageTemplate: PropTypes.string,
+  device: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
   notcool: PropTypes.instanceOf(Object),
   location: PropTypes.instanceOf(Object),
+  modal: PropTypes.bool,
   toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   shouldUpdate: false,
   pageTemplate: '',
+  device: {},
   actions: {},
   notcool: {},
   location: {},
+  modal: false,
   toggleSiteHiddenComponents: () => {},
 };
 
@@ -40,6 +44,19 @@ class NotCool extends Component {
     if (shouldUpdate) {
       actions.getArticleTitle(notcoolFetchParams(pathname));
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { modal, device } = this.props;
+    const modalCondition = nextProps.modal !== modal;
+    const deviceCondition = nextProps.device.screenSize !== device.screenSize;
+    if (
+      modalCondition
+      || deviceCondition
+    ) {
+      return true;
+    }
+    return false;
   }
 
   render() {
