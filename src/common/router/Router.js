@@ -9,13 +9,19 @@ const routes = routeOptions.routes.map(
       path,
       exact,
       component,
+      pageTemplate,
     },
   ) => (
     <Route
       key={`${Math.random()}ROUTE_`}
       path={path}
       exact={exact}
-      component={component}
+      render={
+        () => {
+          const Component = component;
+          return (<Component pageTemplate={pageTemplate} />);
+        }
+      }
     />
   ),
 );

@@ -1,4 +1,4 @@
-function appFetchParams(uri) {
+function notcoolFetchParams(uri) {
   let postId = 1;
   if (uri === '/notcool') {
     postId = 2;
@@ -6,4 +6,4 @@ function appFetchParams(uri) {
   return { id: postId };
 }
 
-export default appFetchParams;
+export default notcoolFetchParams;

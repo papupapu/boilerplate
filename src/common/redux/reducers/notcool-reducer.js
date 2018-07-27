@@ -1,10 +1,10 @@
-import Types from '../constants/app-types';
+import Types from '../constants/notcool-types';
 
 const initialState = {};
 
-function appReducer(state = initialState, action) {
+function notcoolReducer(state = initialState, action) {
   switch (action.type) {
-    case Types.GET_ARTICLE:
+    case Types.GET_NC_ARTICLE:
       return Object.assign(
         {},
         state,
@@ -18,4 +18,4 @@ function appReducer(state = initialState, action) {
   }
 }
 
-export default appReducer;
+export default notcoolReducer;

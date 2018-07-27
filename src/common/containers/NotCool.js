@@ -2,12 +2,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import App from '../components/app/App';
-import * as appActions from '../redux/actions/app-actions';
+import NotCool from '../components/notcool/NotCool';
+import * as notcoolActions from '../redux/actions/notcool-actions';
 
 function mapStateToProps(state) {
   let shouldUpdate = false;
-  if (Object.keys(state.app).length === 0) {
+  if (Object.keys(state.notcool).length === 0) {
     shouldUpdate = true;
     return Object.assign({}, state, { shouldUpdate });
   }
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 // we can merge multiple actions
 const actions = [
-  appActions,
+  notcoolActions,
   // userActions,
 ];
 
@@ -43,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NotCool));

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
-import appFetchParams from '../../router/fetchParams/app';
-import { getArticleTitle } from '../../redux/actions/app-actions';
+import notcoolFetchParams from '../../router/fetchParams/notcool';
+import { getArticleTitle } from '../../redux/actions/notcool-actions';
 
 import './style/app.css';
 
@@ -14,7 +14,7 @@ const propTypes = {
   shouldUpdate: PropTypes.bool,
   pageTemplate: PropTypes.string,
   actions: PropTypes.instanceOf(Object),
-  app: PropTypes.instanceOf(Object),
+  notcool: PropTypes.instanceOf(Object),
   location: PropTypes.instanceOf(Object),
   toggleSiteHiddenComponents: PropTypes.func,
 };
@@ -23,12 +23,12 @@ const defaultProps = {
   shouldUpdate: false,
   pageTemplate: '',
   actions: {},
-  app: {},
+  notcool: {},
   location: {},
   toggleSiteHiddenComponents: () => {},
 };
 
-class App extends Component {
+class NotCool extends Component {
   constructor(props) {
     super(props);
 
@@ -38,24 +38,22 @@ class App extends Component {
   componentWillMount() {
     const { shouldUpdate, actions, location: { pathname } } = this.props;
     if (shouldUpdate) {
-      actions.getArticleTitle(appFetchParams(pathname));
+      actions.getArticleTitle(notcoolFetchParams(pathname));
     }
   }
 
   render() {
-    const { app, pageTemplate, toggleSiteHiddenComponents } = this.props;
-    const title = `${app.id} - ${app.title}`;
+    const { notcool, pageTemplate, toggleSiteHiddenComponents } = this.props;
+    const title = `${notcool.id} - ${notcool.title}`;
     return (
       <Page
-        pageTemplate={pageTemplate}
-
         title={title}
-
+        pageTemplate={pageTemplate}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
         <p>
-          <Link to="/notcool">
-            yeah, supercool!
+          <Link to="/">
+            not cool!!!
           </Link>
         </p>
       </Page>
@@ -63,6 +61,6 @@ class App extends Component {
   }
 }
 
-App.propTypes = propTypes;
-App.defaultProps = defaultProps;
-export default UIHandler(App, getArticleTitle);
+NotCool.propTypes = propTypes;
+NotCool.defaultProps = defaultProps;
+export default UIHandler(NotCool, getArticleTitle);

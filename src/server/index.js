@@ -19,6 +19,8 @@ const app = express();
 app.use('/assets', express.static('./assets'));
 app.use('/build', express.static('./build'));
 
+// based on http://www.codedependant.net/2015/01/31/production-ready-node-configuration/
+
 app.get(
   '*',
   async (req, res) => {
@@ -26,7 +28,7 @@ app.get(
       const store = createStore(reducers, {}, applyMiddleware(thunk));
 
       let foundPath = null;
-      let { component, fetchParams, pageTemplate } = routeOptions.routes.find(
+      let { component, fetchParams } = routeOptions.routes.find(
         ({ path, exact }) => {
           foundPath = matchPath(
             req.url,
@@ -43,7 +45,6 @@ app.get(
       if (!component) {
         component = {};
         fetchParams = {};
-        pageTemplate = '';
       }
 
       if (!component.fetchData) {
@@ -51,7 +52,7 @@ app.get(
       }
 
       const params = await fetchParams(req.url);
-      await component.fetchData({ store, params, pageTemplate });
+      await component.fetchData({ store, params });
 
       const preloadedState = store.getState();
 

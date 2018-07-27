@@ -7,15 +7,15 @@ import './style/vars.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
-  title: PropTypes.string,
   pageTemplate: PropTypes.string,
+  title: PropTypes.string,
   toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   children: null,
-  title: '',
   pageTemplate: '',
+  title: '',
   toggleSiteHiddenComponents: () => {},
 };
 
@@ -30,6 +30,11 @@ const Page = (
   if (pageTemplate === 'fullpage') {
     return (
       <div className="app">
+        <Helmet>
+          <title>
+            {title}
+          </title>
+        </Helmet>
         {children}
       </div>
     );
