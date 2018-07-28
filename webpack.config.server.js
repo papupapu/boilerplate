@@ -4,6 +4,8 @@ const NodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const config = require('./config/10-config.json');
+
 module.exports = {
   entry: {
     main: ['babel-polyfill', './src/server/index.js'],
@@ -45,7 +47,12 @@ module.exports = {
       },
     ],
   },
-  externals: NodeExternals(),
+  externals: [
+    {
+      Config: JSON.stringify(config),
+    },
+    NodeExternals(),
+  ],
   devtool: 'cheap-module-source-map',
   plugins: [
     new MiniCssExtractPlugin({

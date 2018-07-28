@@ -8,7 +8,7 @@ import Page from '../../ui/Page';
 import notcoolFetchParams from '../../router/fetchParams/notcool';
 import { getArticleTitle } from '../../redux/actions/notcool-actions';
 
-import './style/app.css';
+import '../app/style/app.css';
 
 const propTypes = {
   shouldUpdate: PropTypes.bool,

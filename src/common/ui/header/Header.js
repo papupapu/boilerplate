@@ -6,8 +6,6 @@ import { Link, NavLink } from 'react-router-dom';
 import Hamburger from '../icons/Hamburger';
 import Avatar from '../icons/Avatar';
 
-import { CATEGORIES } from '../../../../common/constants/Articles';
-
 import './Header.css';
 
 const HeaderPropTypes = {
