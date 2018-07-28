@@ -31,3 +31,7 @@
 @custom-media --sm (max-width: 767px);
 @custom-media --md (max-width: 990px);
 @custom-media --lg (max-width: 1198px);
+
+body{
+  background:var(--body-background);
+}

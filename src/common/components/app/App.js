@@ -13,6 +13,7 @@ import './style/app.css';
 const propTypes = {
   shouldUpdate: PropTypes.bool,
   pageTemplate: PropTypes.string,
+  config: PropTypes.instanceOf(Object),
   device: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
   app: PropTypes.instanceOf(Object),
@@ -24,6 +25,7 @@ const propTypes = {
 const defaultProps = {
   shouldUpdate: false,
   pageTemplate: '',
+  config: {},
   device: {},
   actions: {},
   app: {},
@@ -62,6 +64,7 @@ class App extends Component {
   render() {
     const {
       app,
+      config,
       pageTemplate,
       modal,
       toggleSiteHiddenComponents,
@@ -69,6 +72,7 @@ class App extends Component {
     const title = `${app.id} - ${app.title}`;
     return (
       <Page
+        config={config}
         pageTemplate={pageTemplate}
         title={title}
         modal={modal}

@@ -1,5 +1,6 @@
 {
   "locale": "en",
+  "siteName": "test site",
   "categories": [
     {
       "path": "",
@@ -29,11 +30,6 @@
     {
       "path": "bike",
       "label": "Bike",
-      "description": ""
-    },
-    {
-      "path": "casait",
-      "label": "Casa.it",
       "description": ""
     }
   ]

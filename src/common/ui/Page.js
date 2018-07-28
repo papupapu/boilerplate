@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Helmet } from 'react-helmet';
 
+import Header from './header/Header';
+
 import Modal from './modal/Modal';
 import Overlayer from './overlayer/Overlayer';
 
@@ -10,6 +12,7 @@ import './style/vars.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
+  config: PropTypes.instanceOf(Object),
   title: PropTypes.string,
   pageTemplate: PropTypes.string,
   modal: PropTypes.bool,
@@ -20,6 +23,7 @@ const propTypes = {
 
 const defaultProps = {
   children: null,
+  config: {},
   title: '',
   pageTemplate: '',
   modal: false,
@@ -31,6 +35,7 @@ const defaultProps = {
 const Page = (
   {
     children,
+    config,
     title,
     pageTemplate,
     modal,
@@ -58,18 +63,12 @@ const Page = (
           {title}
         </title>
       </Helmet>
-      <div id="header">
-        <button
-          type="button"
-          className="modal_handle"
-          onClick={(e) => {
-            e.preventDefault();
-            toggleSiteHiddenComponents(e, {});
-          }}
-        >
-          header
-        </button>
-      </div>
+      <Header
+        isDetail={false}
+        siteName={config.siteName}
+        categories={config.categories}
+        toggleSiteHiddenComponents={toggleSiteHiddenComponents}
+      />
       <div className="content">
         {children}
       </div>
