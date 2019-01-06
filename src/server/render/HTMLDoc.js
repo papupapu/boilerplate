@@ -26,7 +26,6 @@ const HTMLDoc = ({
       {helmet && 'title' in helmet ? helmet.title.toComponent() : null}
 
       {helmet && 'link' in helmet ? helmet.link.toComponent() : null}
-      <link rel="stylesheet" href="/assets/style/defaults.min.css" type="text/css" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Racing+Sans+One|Roboto:300,400" type="text/css" />
       <link rel="stylesheet" href="/build/style.css" type="text/css" />
     </head>

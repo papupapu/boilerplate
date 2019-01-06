@@ -1,37 +1,87 @@
 :root {
+
+  /*
+    CUSTOM FONTS
+  */
+
   --font-family-Racing: "Racing Sans One", Garamond, "Times New Roman", serif;
   --font-family-Roboto: "Roboto", Helvetica, Arial, sans-serif;
 
+/*
+  COLORS
+*/
+
   --body-background:#F1F1F1;
   
+  --menu-background:#F9F9F9;
+  --menu-search-background:#E7FDFF;
+  --menu-search-border:#5BD3E5;
+  --menu-search-text:#31C9DF;
+  --menu-search-input-off:#B6D5DB;
+
+  --light:#C7C7C7;
+  --lighter:#D7D7D7;
+  --dark:#303A45;
+  --darker:#1D262F;
+  --icons-on-dark:#979797;
+
   --black:#000;
   --white:#FFF;
-  --orange:#F39B00;
-  --grey:#656565;
-  --lightGrey:#a1a1a1;
-  --lighterGrey:#C1C5C8;
-  --blueStone:#303A45;
+  
   --fb-background:#4460ae;
   --tw-background:#00aced;
   --gp-background:#ff4a36;
 
-  --article-boxShadow:0 2px 8px 0 rgba(0, 0, 0, .1);
+/*
+  FORMATTING & RESETTING
+*/
+
+  --box-sizing: {
+    box-sizing: border-box;
+  }
+
+  --no-margin-padding: {
+    margin:0; padding:0;
+  }
+
+/*
+  IMAGES
+*/
 
   --img-optimize: {
     position:absolute;
     top:50%; left:50%; transform: translate(-50%, -50%);
-  
+
     width:100%; height:100%;
     
     object-fit:cover;    
   }
+
+/*
+  ANIMATIONS
+*/
+
+  --stanrdard-transition: {
+    transition:transform .3s linear;
+  }
+
+  --background-transition: {
+    transition:background-color .3s linear;
+  }
+
+  --reset-all-transitions: {
+    transition:none;
+  }
+
+/*
+  STYLING
+*/
+
+  --article-boxShadow:0 2px 8px 0 rgba(0, 0, 0, .1);
+
 }
 
-@custom-media --xs (max-width: 374px);
-@custom-media --sm (max-width: 767px);
-@custom-media --md (max-width: 990px);
-@custom-media --lg (max-width: 1198px);
-
-body{
-  background:var(--body-background);
-}
+@custom-media --sm (min-width: 375px);
+@custom-media --md (min-width: 768px);
+@custom-media --lg (min-width: 950px);
+@custom-media --xl (min-width: 1198px);

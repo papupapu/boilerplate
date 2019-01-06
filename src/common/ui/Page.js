@@ -3,18 +3,24 @@ import PropTypes from 'prop-types';
 
 import { Helmet } from 'react-helmet';
 
+import { NavLink } from 'react-router-dom';
+
 import Header from './header/Header';
+import Footer from './footer/Footer';
 
 import Modal from './modal/Modal';
 import Overlayer from './overlayer/Overlayer';
 
 import './style/vars.css';
+import './style/defaults.css';
 
 const propTypes = {
   children: PropTypes.instanceOf(Object),
   config: PropTypes.instanceOf(Object),
   title: PropTypes.string,
   pageTemplate: PropTypes.string,
+  device: PropTypes.instanceOf(Object),
+  menu: PropTypes.bool,
   modal: PropTypes.bool,
   modalType: PropTypes.string,
   modalData: PropTypes.instanceOf(Object),
@@ -26,6 +32,8 @@ const defaultProps = {
   config: {},
   title: '',
   pageTemplate: '',
+  device: {},
+  menu: false,
   modal: false,
   modalType: '',
   modalData: {},
@@ -38,6 +46,8 @@ const Page = (
     config,
     title,
     pageTemplate,
+    device,
+    menu,
     modal,
     modalType,
     modalData,
@@ -56,6 +66,7 @@ const Page = (
       </div>
     );
   }
+  const navHeight = 'viewport' in device ? device.viewport.width / 100 * 75 : 0;
   return (
     <div className="wrap">
       <Helmet>
@@ -65,18 +76,46 @@ const Page = (
       </Helmet>
       <Header
         isDetail={false}
+        menu={menu}
         siteName={config.siteName}
-        categories={config.categories}
+        navHeight={navHeight}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       />
+      <nav
+        className="siteNav"
+      >
+        <ul>
+          {
+            config.categories.map(
+              category => (
+                <li key={`${Math.random()}_nav_link`}>
+                  <NavLink
+                    to={`/${category.path}`}
+                    title={category.label}
+                    exact={category.label === 'Home'}
+                  >
+                    {category.label}
+                  </NavLink>
+                </li>
+              ),
+            )
+          }
+        </ul>
+        <div className="search">
+          <form>
+            <fieldset>
+              <label htmlFor="searchquery">
+                Search the site
+                <input type="text" id="searchquery" name="searchquery" value="Search the site" />
+              </label>
+            </fieldset>
+          </form>
+        </div>
+      </nav>
       <div className="content">
         {children}
       </div>
-      <div id="footer">
-        <p>
-          footer
-        </p>
-      </div>
+      <Footer />
       {
         modal
         && (

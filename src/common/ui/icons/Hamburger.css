@@ -17,8 +17,12 @@
 }
 
 .hamburger path{
-	fill:#999;
+	fill:#979797;
 	transition:all 150ms;
+}
+
+.menu_open .hamburger path{
+  fill:#303A45;
 }
 
 .hamburger path.white{

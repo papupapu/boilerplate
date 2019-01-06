@@ -13,6 +13,7 @@ export default function UIHandler(Content, fetchFunction) {
 
       this.state = {
         device: {},
+        menu: false,
         modal: false,
       };
 
@@ -39,13 +40,24 @@ export default function UIHandler(Content, fetchFunction) {
     }
 
     computeUiInfos = () => {
+      const {
+        menu,
+      } = this.state;
       const updatedUi = userDevice();
+      if (
+        (
+          updatedUi.screenSize === 'lg'
+          || updatedUi.screenSize === 'xl'
+        ) && menu
+      ) {
+        this.toggleSiteHiddenComponents({ target: { className: 'menu_handle' } }, null);
+      }
       this.setUiInfos(updatedUi);
     }
 
     toggleSiteHiddenComponents = (evt, obj) => {
       if (this.doc !== null) {
-        const { modal } = this.state;
+        const { menu, modal } = this.state;
         const docClass = this.doc.classList;
         let action;
         if (evt.target.classList && evt.target.classList.length > 1) {
@@ -92,6 +104,9 @@ export default function UIHandler(Content, fetchFunction) {
             this.modalData = !modal && obj !== null ? obj : {};
             this.setState({ modal: !modal });
           }
+          if (isMenu) {
+            this.setState({ menu: !menu });
+          }
         } else { // overlayer
           this.uiHiddenComponents.forEach(
             (component) => {
@@ -108,6 +123,9 @@ export default function UIHandler(Content, fetchFunction) {
             this.modalType = '';
             this.modalData = {};
             this.setState({ modal: false });
+          }
+          if (menu) {
+            this.setState({ menu: false });
           }
         }
       }
