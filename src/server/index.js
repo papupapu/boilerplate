@@ -51,7 +51,13 @@ app.get(
         component.fetchData = () => new Promise(resolve => resolve());
       }
 
-      const params = await fetchParams(req.url);
+      const confCategories = store.getState().config.categories;
+      const current = confCategories.filter(category => category.path === req.url)[0];
+      const params = await fetchParams({
+        path: current.path,
+        title: current.title,
+        slug: current.slug,
+      });
       await component.fetchData({ store, params });
 
       const preloadedState = store.getState();

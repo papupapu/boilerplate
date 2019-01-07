@@ -4,13 +4,14 @@ const initialState = {};
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case Types.GET_ARTICLE:
+    case Types.GET_ARTICLELIST:
       return Object.assign(
         {},
         state,
         {
-          id: action.payload.id,
-          title: action.payload.title,
+          articles: action.payload.articles,
+          id: 0,
+          title: 'Home',
         },
       );
     default:

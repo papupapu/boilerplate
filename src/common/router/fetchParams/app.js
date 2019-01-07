@@ -1,5 +1,5 @@
 function appFetchParams(uri) {
-  let postId = 1;
+  let postId = 'home';
   if (uri === '/notcool') {
     postId = 2;
   }

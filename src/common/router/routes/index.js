@@ -1,8 +1,8 @@
 import App from '../../containers/App';
-import NotCool from '../../containers/NotCool';
+import Category from '../../containers/Category';
 
 import appFetchParams from '../fetchParams/app';
-import notcoolFetchParams from '../fetchParams/notcool';
+import categoryFetchParams from '../fetchParams/category';
 
 export default {
   routes: [
@@ -14,11 +14,11 @@ export default {
       pageTemplate: '',
     },
     {
-      path: '/notcool',
+      path: '/:category',
       exact: true,
-      component: NotCool,
-      fetchParams: notcoolFetchParams,
-      pageTemplate: 'fullpage',
+      component: Category,
+      fetchParams: categoryFetchParams,
+      pageTemplate: '',
     },
   ],
 };

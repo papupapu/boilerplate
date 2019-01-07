@@ -2,14 +2,14 @@ import Request from 'axios';
 
 import Types from '../constants/app-types';
 
-function getArticleFromAPI(id) {
-  return Request.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+function getArticleListFromAPI(id) {
+  return Request.get(`http://localhost:8888/${id}.json`);
 }
 
-export function getArticleTitle(params) {
+export function getArticleList(params) {
   return async (dispatch) => {
-    const { data } = await getArticleFromAPI(params.id);
-    dispatch({ type: Types.GET_ARTICLE, payload: data });
+    const { data } = await getArticleListFromAPI(params.id);
+    dispatch({ type: Types.GET_ARTICLELIST, payload: data });
   };
 }
 

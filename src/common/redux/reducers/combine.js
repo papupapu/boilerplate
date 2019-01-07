@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import configReducer from './config-reducer';
 import appReducer from './app-reducer';
-import notcoolReducer from './notcool-reducer';
+import categoryReducer from './category-reducer';
 
 const reducers = combineReducers({
   config: configReducer,
   app: appReducer,
-  notcool: notcoolReducer,
+  category: categoryReducer,
 });
 
 export default reducers;

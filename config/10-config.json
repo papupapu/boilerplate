@@ -3,33 +3,39 @@
   "siteName": "test site",
   "categories": [
     {
-      "path": "",
+      "path": "/",
       "label": "Home",
+      "slug": "home",
       "description": ""
     },
     {
-      "path": "surf",
+      "path": "/surf",
       "label": "Surf",
+      "slug": "surf",
       "description": ""
     },
     {
-      "path": "mountain",
+      "path": "/mountain",
       "label": "Mountain",
+      "slug": "mountain",
       "description": ""
     },
     {
-      "path": "nba",
+      "path": "/nba",
       "label": "NBA",
+      "slug": "nba",
       "description": ""
     },
     {
-      "path": "comics",
+      "path": "/comics",
       "label": "Comics",
+      "slug": "comics",
       "description": ""
     },
     {
-      "path": "bike",
+      "path": "/bike",
       "label": "Bike",
+      "slug": "bike",
       "description": ""
     }
   ]

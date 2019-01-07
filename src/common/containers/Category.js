@@ -2,12 +2,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import NotCool from '../components/notcool/NotCool';
-import * as notcoolActions from '../redux/actions/notcool-actions';
+import Category from '../components/category/Category';
+import * as categoryActions from '../redux/actions/category-actions';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const current = ownProps.location.pathname.replace('/', '');
   let shouldUpdate = false;
-  if (Object.keys(state.notcool).length === 0) {
+  if (
+    typeof state.category[current] === 'undefined'
+    || state.category[current] === null
+    || Object.keys(state.category[current]).length === 0
+  ) {
     shouldUpdate = true;
     return Object.assign({}, state, { shouldUpdate });
   }
@@ -16,7 +21,7 @@ function mapStateToProps(state) {
 
 // we can merge multiple actions
 const actions = [
-  notcoolActions,
+  categoryActions,
   // userActions,
 ];
 
@@ -43,4 +48,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NotCool));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Category));

@@ -5,18 +5,20 @@ import { Link } from 'react-router-dom';
 import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
-import notcoolFetchParams from '../../router/fetchParams/notcool';
-import { getArticleTitle } from '../../redux/actions/notcool-actions';
+import categoryFetchParams from '../../router/fetchParams/category';
+import { getArticleTitle } from '../../redux/actions/category-actions';
 
 import '../app/style/app.css';
 
 const propTypes = {
   shouldUpdate: PropTypes.bool,
   pageTemplate: PropTypes.string,
+  config: PropTypes.instanceOf(Object),
   device: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
-  notcool: PropTypes.instanceOf(Object),
+  category: PropTypes.instanceOf(Object),
   location: PropTypes.instanceOf(Object),
+  menu: PropTypes.bool,
   modal: PropTypes.bool,
   toggleSiteHiddenComponents: PropTypes.func,
 };
@@ -24,15 +26,17 @@ const propTypes = {
 const defaultProps = {
   shouldUpdate: false,
   pageTemplate: '',
+  config: {},
   device: {},
   actions: {},
-  notcool: {},
+  category: {},
   location: {},
+  menu: false,
   modal: false,
   toggleSiteHiddenComponents: () => {},
 };
 
-class NotCool extends Component {
+class Category extends Component {
   constructor(props) {
     super(props);
 
@@ -40,9 +44,27 @@ class NotCool extends Component {
   }
 
   componentWillMount() {
-    const { shouldUpdate, actions, location: { pathname } } = this.props;
+    const {
+      shouldUpdate,
+      actions,
+      config: {
+        categories,
+      },
+      location: {
+        pathname,
+      },
+    } = this.props;
     if (shouldUpdate) {
-      actions.getArticleTitle(notcoolFetchParams(pathname));
+      const current = categories.filter(category => category.path === pathname)[0];
+      actions.getArticleTitle(
+        categoryFetchParams(
+          {
+            path: current.path,
+            title: current.title,
+            slug: current.slug,
+          },
+        ),
+      );
     }
   }
 
@@ -60,12 +82,24 @@ class NotCool extends Component {
   }
 
   render() {
-    const { notcool, pageTemplate, toggleSiteHiddenComponents } = this.props;
-    const title = `${notcool.id} - ${notcool.title}`;
+    const {
+      config,
+      device,
+      category,
+      menu,
+      modal,
+      pageTemplate,
+      toggleSiteHiddenComponents,
+    } = this.props;
+    const title = `${category.id} - ${category.title}`;
     return (
       <Page
-        title={title}
+        config={config}
         pageTemplate={pageTemplate}
+        title={title}
+        device={device}
+        menu={menu}
+        modal={modal}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
         <p>
@@ -78,6 +112,6 @@ class NotCool extends Component {
   }
 }
 
-NotCool.propTypes = propTypes;
-NotCool.defaultProps = defaultProps;
-export default UIHandler(NotCool, getArticleTitle);
+Category.propTypes = propTypes;
+Category.defaultProps = defaultProps;
+export default UIHandler(Category, getArticleTitle);

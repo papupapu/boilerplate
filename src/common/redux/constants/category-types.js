@@ -1,5 +1,5 @@
 const Types = {
-  GET_NC_ARTICLE: 'GET_NC_ARTICLE',
+  GET_CATEGORY_LIST: 'GET_CATEGORY_LIST',
 };
 
 export default Types;

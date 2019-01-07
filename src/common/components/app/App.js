@@ -6,7 +6,7 @@ import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
 import appFetchParams from '../../router/fetchParams/app';
-import { getArticleTitle } from '../../redux/actions/app-actions';
+import { getArticleList } from '../../redux/actions/app-actions';
 
 import './style/app.css';
 
@@ -40,25 +40,48 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      updateData: false,
+    };
   }
 
   componentWillMount() {
     const { shouldUpdate, actions, location: { pathname } } = this.props;
     if (shouldUpdate) {
-      actions.getArticleTitle(appFetchParams(pathname));
+      actions.getArticleList(appFetchParams(pathname));
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { modal, menu, device } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const {
+      app,
+    } = this.props;
+    const dataCondition = Object.keys(nextProps.app).length > 0 && Object.keys(app).length === 0;
+    if (dataCondition) {
+      this.setState({
+        updateData: true,
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {
+      modal,
+      menu,
+      device,
+    } = this.props;
+    const {
+      updateData,
+    } = this.state;
     const modalCondition = nextProps.modal !== modal;
     const menuCondition = nextProps.menu !== menu;
     const deviceCondition = nextProps.device.screenSize !== device.screenSize;
+    const dataCondition = nextState.updateData !== updateData;
     if (
       modalCondition
       || menuCondition
       || deviceCondition
+      || dataCondition
     ) {
       return true;
     }
@@ -75,12 +98,11 @@ class App extends Component {
       modal,
       toggleSiteHiddenComponents,
     } = this.props;
-    const title = `${app.id} - ${app.title}`;
     return (
       <Page
         config={config}
         pageTemplate={pageTemplate}
-        title={title}
+        title={app.title}
         device={device}
         menu={menu}
         modal={modal}
@@ -98,4 +120,4 @@ class App extends Component {
 
 App.propTypes = propTypes;
 App.defaultProps = defaultProps;
-export default UIHandler(App, getArticleTitle);
+export default UIHandler(App, getArticleList);

@@ -71,7 +71,7 @@ const Page = (
     <div className="wrap">
       <Helmet>
         <title>
-          {title}
+          {`${title} - ${config.siteName}`}
         </title>
       </Helmet>
       <Header
@@ -90,7 +90,7 @@ const Page = (
               category => (
                 <li key={`${Math.random()}_nav_link`}>
                   <NavLink
-                    to={`/${category.path}`}
+                    to={`${category.path}`}
                     title={category.label}
                     exact={category.label === 'Home'}
                   >
@@ -106,7 +106,7 @@ const Page = (
             <fieldset>
               <label htmlFor="searchquery">
                 Search the site
-                <input type="text" id="searchquery" name="searchquery" value="Search the site" />
+                <input type="text" id="searchquery" name="searchquery" defaultValue="Search the site" />
               </label>
             </fieldset>
           </form>
