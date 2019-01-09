@@ -91,10 +91,10 @@ const Page = (
                 <li key={`${Math.random()}_nav_link`}>
                   <NavLink
                     to={`${category.path}`}
-                    title={category.label}
-                    exact={category.label === 'Home'}
+                    title={category.title}
+                    exact={category.title === 'Home'}
                   >
-                    {category.label}
+                    {category.title}
                   </NavLink>
                 </li>
               ),

@@ -7,14 +7,14 @@ import * as categoryActions from '../redux/actions/category-actions';
 
 function mapStateToProps(state, ownProps) {
   const current = ownProps.location.pathname.replace('/', '');
-  let shouldUpdate = false;
+  let shouldFetch = false;
   if (
     typeof state.category[current] === 'undefined'
     || state.category[current] === null
     || Object.keys(state.category[current]).length === 0
   ) {
-    shouldUpdate = true;
-    return Object.assign({}, state, { shouldUpdate });
+    shouldFetch = true;
+    return Object.assign({}, state, { shouldFetch });
   }
   return state;
 }

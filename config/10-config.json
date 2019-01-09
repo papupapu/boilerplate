@@ -4,37 +4,37 @@
   "categories": [
     {
       "path": "/",
-      "label": "Home",
+      "title": "Home",
       "slug": "home",
       "description": ""
     },
     {
       "path": "/surf",
-      "label": "Surf",
+      "title": "Surf",
       "slug": "surf",
       "description": ""
     },
     {
       "path": "/mountain",
-      "label": "Mountain",
+      "title": "Mountain",
       "slug": "mountain",
       "description": ""
     },
     {
       "path": "/nba",
-      "label": "NBA",
+      "title": "NBA",
       "slug": "nba",
       "description": ""
     },
     {
       "path": "/comics",
-      "label": "Comics",
+      "title": "Comics",
       "slug": "comics",
       "description": ""
     },
     {
       "path": "/bike",
-      "label": "Bike",
+      "title": "Bike",
       "slug": "bike",
       "description": ""
     }

@@ -11,7 +11,7 @@ import { getArticleTitle } from '../../redux/actions/category-actions';
 import '../app/style/app.css';
 
 const propTypes = {
-  shouldUpdate: PropTypes.bool,
+  shouldFetch: PropTypes.bool,
   pageTemplate: PropTypes.string,
   config: PropTypes.instanceOf(Object),
   device: PropTypes.instanceOf(Object),
@@ -24,7 +24,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  shouldUpdate: false,
+  shouldFetch: false,
   pageTemplate: '',
   config: {},
   device: {},
@@ -36,45 +36,95 @@ const defaultProps = {
   toggleSiteHiddenComponents: () => {},
 };
 
+const getCurrentCategory = (categories, pathname) => {
+  const current = categories.filter(category => category.path === pathname)[0];
+  return current;
+};
+
 class Category extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-  }
-
-  componentWillMount() {
     const {
-      shouldUpdate,
-      actions,
       config: {
         categories,
       },
       location: {
         pathname,
       },
+    } = props;
+    this.state = {
+      currentCategory: getCurrentCategory(categories, pathname),
+    };
+  }
+
+  componentWillMount() {
+    const {
+      shouldFetch,
+      actions,
     } = this.props;
-    if (shouldUpdate) {
-      const current = categories.filter(category => category.path === pathname)[0];
+    const {
+      currentCategory,
+    } = this.state;
+    if (shouldFetch) {
       actions.getArticleTitle(
         categoryFetchParams(
           {
-            path: current.path,
-            title: current.title,
-            slug: current.slug,
+            path: currentCategory.path,
+            title: currentCategory.title,
+            slug: currentCategory.slug,
           },
         ),
       );
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { modal, device } = this.props;
-    const modalCondition = nextProps.modal !== modal;
-    const deviceCondition = nextProps.device.screenSize !== device.screenSize;
+  componentWillReceiveProps(nextProps) {
+    const {
+      actions,
+      config: {
+        categories,
+      },
+      location,
+      category,
+    } = this.props;
+    const {
+      location: {
+        pathname,
+      },
+    } = nextProps;
+    const currentCategory = getCurrentCategory(categories, pathname);
+    const shouldFetch = location.pathname !== pathname
+      && (
+        typeof category[currentCategory.slug] === 'undefined'
+        || category[currentCategory.slug] === null
+        || Object.keys(category[currentCategory.slug]).length === 0
+      );
+    if (shouldFetch) {
+      actions.getArticleTitle(
+        categoryFetchParams(
+          {
+            path: currentCategory.path,
+            title: currentCategory.title,
+            slug: currentCategory.slug,
+          },
+        ),
+      );
+    }
+    this.setState({
+      currentCategory,
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {
+      currentCategory: {
+        title,
+      },
+    } = this.state;
     if (
-      modalCondition
-      || deviceCondition
+      nextState.currentCategory.title !== title
+      || typeof nextProps.category[nextState.currentCategory] !== 'undefined'
     ) {
       return true;
     }
@@ -85,13 +135,17 @@ class Category extends Component {
     const {
       config,
       device,
-      category,
+      // category,
       menu,
       modal,
       pageTemplate,
       toggleSiteHiddenComponents,
     } = this.props;
-    const title = `${category.id} - ${category.title}`;
+    const {
+      currentCategory: {
+        title,
+      },
+    } = this.state;
     return (
       <Page
         config={config}
@@ -104,7 +158,7 @@ class Category extends Component {
       >
         <p>
           <Link to="/">
-            not cool!!!
+            {title}
           </Link>
         </p>
       </Page>
