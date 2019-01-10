@@ -4,7 +4,7 @@ const initialState = {};
 
 function categoryReducer(state = initialState, action) {
   switch (action.type) {
-    case Types.GET_CATEGORY_LIST:
+    case Types.FETCH_CATEGORY_LIST:
       return Object.assign(
         {},
         state,

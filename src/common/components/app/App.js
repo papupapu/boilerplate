@@ -14,26 +14,20 @@ const propTypes = {
   shouldUpdate: PropTypes.bool,
   pageTemplate: PropTypes.string,
   config: PropTypes.instanceOf(Object),
-  device: PropTypes.instanceOf(Object),
+  ui: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
   app: PropTypes.instanceOf(Object),
   location: PropTypes.instanceOf(Object),
-  menu: PropTypes.bool,
-  modal: PropTypes.bool,
-  toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   shouldUpdate: false,
   pageTemplate: '',
   config: {},
-  device: {},
+  ui: {},
   actions: {},
   app: {},
   location: {},
-  menu: false,
-  modal: false,
-  toggleSiteHiddenComponents: () => {},
 };
 
 class App extends Component {
@@ -66,16 +60,18 @@ class App extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {
-      modal,
-      menu,
-      device,
+      ui: {
+        modal,
+        menu,
+        device,
+      },
     } = this.props;
     const {
       updateData,
     } = this.state;
-    const modalCondition = nextProps.modal !== modal;
-    const menuCondition = nextProps.menu !== menu;
-    const deviceCondition = nextProps.device.screenSize !== device.screenSize;
+    const modalCondition = nextProps.ui.modal !== modal;
+    const menuCondition = nextProps.ui.menu !== menu;
+    const deviceCondition = nextProps.ui.device.screenSize !== device.screenSize;
     const dataCondition = nextState.updateData !== updateData;
     if (
       modalCondition
@@ -93,10 +89,12 @@ class App extends Component {
       app,
       config,
       pageTemplate,
-      device,
-      menu,
-      modal,
-      toggleSiteHiddenComponents,
+      ui: {
+        modal,
+        menu,
+        device,
+        toggleSiteHiddenComponents,
+      },
     } = this.props;
     return (
       <Page

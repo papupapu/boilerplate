@@ -1,6 +1,7 @@
 {
   "locale": "en",
   "siteName": "test site",
+  "apiServer": "http://localhost:8888",
   "categories": [
     {
       "path": "/",

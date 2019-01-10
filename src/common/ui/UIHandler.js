@@ -132,13 +132,24 @@ export default function UIHandler(Content, fetchFunction) {
     }
 
     render() {
+      const {
+        device,
+        menu,
+        modal,
+      } = this.state;
+      const ui = Object.assign({}, {
+        device,
+        menu,
+        modal,
+        modalType: this.modalType,
+        modalData: this.modalData,
+        toggleSiteHiddenComponents: this.toggleSiteHiddenComponents,
+      });
       return (
         <Content
           {...this.props}
           {...this.state}
-          modalType={this.modalType}
-          modalData={this.modalData}
-          toggleSiteHiddenComponents={this.toggleSiteHiddenComponents}
+          ui={ui}
         />
       );
     }

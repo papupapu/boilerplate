@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import UIHandler from '../../ui/UIHandler';
 import Page from '../../ui/Page';
 
+
 import categoryFetchParams from '../../router/fetchParams/category';
-import { getArticleTitle } from '../../redux/actions/category-actions';
+import { fetchCategoryListing } from '../../redux/actions/category-actions';
+import { getCurrentCategory } from '../../helpers';
 
 import '../app/style/app.css';
 
@@ -14,37 +16,25 @@ const propTypes = {
   shouldFetch: PropTypes.bool,
   pageTemplate: PropTypes.string,
   config: PropTypes.instanceOf(Object),
-  device: PropTypes.instanceOf(Object),
+  ui: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
   category: PropTypes.instanceOf(Object),
   location: PropTypes.instanceOf(Object),
-  menu: PropTypes.bool,
-  modal: PropTypes.bool,
-  toggleSiteHiddenComponents: PropTypes.func,
 };
 
 const defaultProps = {
   shouldFetch: false,
   pageTemplate: '',
   config: {},
-  device: {},
+  ui: {},
   actions: {},
   category: {},
   location: {},
-  menu: false,
-  modal: false,
-  toggleSiteHiddenComponents: () => {},
-};
-
-const getCurrentCategory = (categories, pathname) => {
-  const current = categories.filter(category => category.path === pathname)[0];
-  return current;
 };
 
 class Category extends Component {
   constructor(props) {
     super(props);
-
     const {
       config: {
         categories,
@@ -67,7 +57,7 @@ class Category extends Component {
       currentCategory,
     } = this.state;
     if (shouldFetch) {
-      actions.getArticleTitle(
+      actions.fetchCategoryListing(
         categoryFetchParams(
           {
             path: currentCategory.path,
@@ -101,7 +91,7 @@ class Category extends Component {
         || Object.keys(category[currentCategory.slug]).length === 0
       );
     if (shouldFetch) {
-      actions.getArticleTitle(
+      actions.fetchCategoryListing(
         categoryFetchParams(
           {
             path: currentCategory.path,
@@ -118,13 +108,27 @@ class Category extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {
+      ui: {
+        modal,
+        menu,
+        device,
+      },
+    } = this.props;
+    const {
       currentCategory: {
         title,
       },
     } = this.state;
+    const modalCondition = nextProps.ui.modal !== modal;
+    const menuCondition = nextProps.ui.menu !== menu;
+    const deviceCondition = nextProps.ui.device.screenSize !== device.screenSize;
+    const dataCondition = nextState.currentCategory.title !== title
+      || typeof nextProps.category[nextState.currentCategory.slug] !== 'undefined';
     if (
-      nextState.currentCategory.title !== title
-      || typeof nextProps.category[nextState.currentCategory] !== 'undefined'
+      modalCondition
+      || menuCondition
+      || deviceCondition
+      || dataCondition
     ) {
       return true;
     }
@@ -134,16 +138,19 @@ class Category extends Component {
   render() {
     const {
       config,
-      device,
-      // category,
-      menu,
-      modal,
+      ui: {
+        device,
+        menu,
+        modal,
+        toggleSiteHiddenComponents,
+      },
+      category,
       pageTemplate,
-      toggleSiteHiddenComponents,
     } = this.props;
     const {
       currentCategory: {
         title,
+        slug,
       },
     } = this.state;
     return (
@@ -161,6 +168,19 @@ class Category extends Component {
             {title}
           </Link>
         </p>
+        {
+          category[slug]
+          && category[slug].articles.map(article => (
+            <article key={`${slug}_article_${Math.random()}`}>
+              <h2>
+                {article.title}
+              </h2>
+              <p>
+                {article.subtitle}
+              </p>
+            </article>
+          ))
+        }
       </Page>
     );
   }
@@ -168,4 +188,4 @@ class Category extends Component {
 
 Category.propTypes = propTypes;
 Category.defaultProps = defaultProps;
-export default UIHandler(Category, getArticleTitle);
+export default UIHandler(Category, fetchCategoryListing);
