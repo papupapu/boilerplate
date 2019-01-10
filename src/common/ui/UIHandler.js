@@ -148,7 +148,6 @@ export default function UIHandler(Content, fetchFunction) {
       return (
         <Content
           {...this.props}
-          {...this.state}
           ui={ui}
         />
       );
