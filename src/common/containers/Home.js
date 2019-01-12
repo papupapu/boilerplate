@@ -2,12 +2,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import App from '../components/app/App';
-import * as appActions from '../redux/actions/app-actions';
+import Home from '../components/home/Home';
+import * as homeActions from '../redux/actions/home-actions';
 
 function mapStateToProps(state) {
   let shouldUpdate = false;
-  if (Object.keys(state.app).length === 0) {
+  if (Object.keys(state.home).length === 0) {
     shouldUpdate = true;
     return Object.assign({}, state, { shouldUpdate });
   }
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 // we can merge multiple actions
 const actions = [
-  appActions,
+  homeActions,
   // userActions,
 ];
 
@@ -43,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

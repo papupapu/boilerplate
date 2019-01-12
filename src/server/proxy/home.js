@@ -1,11 +1,11 @@
 import express from 'express';
 import Request from 'axios';
 
-import CategoryListingModel from './models/category';
+import HomeListingModel from './models/home';
 
 import { log } from '../../common/helpers';
 
-const fetchCategoryData = req => new Promise(
+const fetchHomeData = req => new Promise(
   (resolve) => {
     Request.defaults.headers = {
       'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const fetchCategoryData = req => new Promise(
       })
       .catch((e) => {
         log('---');
-        log('Error in fetchCategoryData - /server/proxy/category.js');
+        log('Error in fetchHomeData - /server/proxy/category.js');
         log('error:');
         log(e);
         log('response:');
@@ -32,18 +32,18 @@ const fetchCategoryData = req => new Promise(
 
 const router = express.Router();
 router.route('/').post((req, res) => {
-  async function getCategoryData() {
-    const APIResponse = await fetchCategoryData(req);
+  async function getHomeData() {
+    const APIResponse = await fetchHomeData(req);
     if (APIResponse.result.error) {
       res.status(200).send('noooooo').end();
     } else {
-      const response = new CategoryListingModel(
+      const response = new HomeListingModel(
         APIResponse.result.articles,
       );
       res.status(200).send(Object.assign({}, response)).end();
     }
   }
-  getCategoryData();
+  getHomeData();
 });
 
 export default router;

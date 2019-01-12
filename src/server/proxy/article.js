@@ -1,24 +1,24 @@
 import express from 'express';
 import Request from 'axios';
 
-import CategoryListingModel from './models/category';
+import ArticleModel from './models/article';
 
 import { log } from '../../common/helpers';
 
-const fetchCategoryData = req => new Promise(
+const fetchArticleData = req => new Promise(
   (resolve) => {
     Request.defaults.headers = {
       'Content-Type': 'application/json',
       'Accept-Encoding': 'gzip, deflate',
     };
-    Request.get(`http://localhost:8888${req.body.uri}.json`)
+    Request.get(`http://localhost:8888${req.body.categoryUri}.json`)
       .then((response) => {
         const result = Object.assign({}, { error: false }, response.data);
         return resolve({ result });
       })
       .catch((e) => {
         log('---');
-        log('Error in fetchCategoryData - /server/proxy/category.js');
+        log('Error in fetchArticleData - /server/proxy/category.js');
         log('error:');
         log(e);
         log('response:');
@@ -32,18 +32,18 @@ const fetchCategoryData = req => new Promise(
 
 const router = express.Router();
 router.route('/').post((req, res) => {
-  async function getCategoryData() {
-    const APIResponse = await fetchCategoryData(req);
+  async function getArticleData() {
+    const APIResponse = await fetchArticleData(req);
     if (APIResponse.result.error) {
       res.status(200).send('noooooo').end();
     } else {
-      const response = new CategoryListingModel(
-        APIResponse.result.articles,
+      const result = new ArticleModel(
+        APIResponse.result.articles.filter(item => item.id === req.body.id)[0],
       );
-      res.status(200).send(Object.assign({}, response)).end();
+      res.status(200).send(Object.assign({}, { result })).end();
     }
   }
-  getCategoryData();
+  getArticleData();
 });
 
 export default router;

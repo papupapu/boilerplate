@@ -1,5 +1,5 @@
 @import "../style/vars";
 
 #footer {
-	background:#999; border-top:1rem solid var(--blueStone);
+	background:#999; border-top:1rem solid var(--dark);
 }

@@ -16,7 +16,11 @@ import render from './render/index';
 
 import AppRouter from '../common/router/Router';
 
-import { getCurrentCategory } from '../common/helpers';
+import {
+  uriMatcher,
+  getCurrentCategory,
+  log,
+} from '../common/helpers';
 
 const app = express();
 app.use('/assets', express.static('./assets'));
@@ -52,13 +56,30 @@ app.get(
         component.fetchData = () => new Promise(resolve => resolve());
       }
 
+      let params = {};
+      const reqPageType = uriMatcher(req.url);
       const confCategories = store.getState().config.categories;
-      const current = getCurrentCategory(confCategories, req.url);
-      const params = await fetchParams({
-        path: current.path,
-        title: current.title,
-        slug: current.slug,
-      });
+      if (
+        reqPageType === 'home'
+        || reqPageType === 'category'
+      ) {
+        const current = getCurrentCategory(confCategories, req.url);
+        params = await fetchParams({
+          path: current.path,
+          title: current.title,
+          slug: current.slug,
+        });
+      } else if (reqPageType === 'article') {
+        const [categorySlug, articleId] = req.url.split('/').filter(part => part !== '');
+        const articleCategory = getCurrentCategory(confCategories, `/${categorySlug}`);
+        params = await fetchParams({
+          id: articleId,
+          path: articleCategory.path,
+          title: articleCategory.title,
+          slug: articleCategory.slug,
+        });
+      }
+
       await component.fetchData({ store, params });
       const preloadedState = store.getState();
 
@@ -81,10 +102,10 @@ app.get(
         res.send(render(html, preloadedState, helmetData));
       }
     } catch (err) {
-      console.log('');
-      console.log('err');
-      console.log(err);
-      console.log('');
+      log('');
+      log('err');
+      log(err);
+      log('');
       res.status(400).send(render('error!!!', {}, {}));
     }
   },
@@ -94,6 +115,6 @@ const port = process.env.PORT || 9000;
 app.listen(
   port,
   () => {
-    console.log(`server started on port: ${port}`);
+    log(`server started on port: ${port}`);
   },
 );

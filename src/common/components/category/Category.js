@@ -10,7 +10,7 @@ import categoryFetchParams from '../../router/fetchParams/category';
 import { fetchCategoryListing } from '../../redux/actions/category-actions';
 import { getCurrentCategory } from '../../helpers';
 
-import '../app/style/app.css';
+// import './style/category.css';
 
 const propTypes = {
   shouldFetch: PropTypes.bool,
@@ -173,7 +173,9 @@ class Category extends Component {
           && category[slug].articles.map(article => (
             <article key={`${slug}_article_${Math.random()}`}>
               <h2>
-                {article.title}
+                <Link to={article.url}>
+                  {article.title}
+                </Link>
               </h2>
               <p>
                 {article.subtitle}

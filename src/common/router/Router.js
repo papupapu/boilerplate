@@ -13,7 +13,7 @@ const routes = routeOptions.routes.map(
     },
   ) => (
     <Route
-      key={`${Math.random()}ROUTE_`}
+      key={`ROUTE_${Math.random()}`}
       path={path}
       exact={exact}
       render={

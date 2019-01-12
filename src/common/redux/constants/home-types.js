@@ -1,5 +1,5 @@
 const Types = {
-  GET_ARTICLELIST: 'GET_ARTICLELIST',
+  FETCH_HOME_LIST: 'FETCH_HOME_LIST',
 };
 
 export default Types;
