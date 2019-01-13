@@ -10,6 +10,12 @@ function articleReducer(state = initialState, action) {
         state,
         action.payload.result.article,
       );
+    case Types.SET_ARTICLE_FROM_CATEGORY:
+      return Object.assign(
+        {},
+        state,
+        action.payload.article,
+      );
     default:
       return state;
   }

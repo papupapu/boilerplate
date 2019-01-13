@@ -1,5 +1,43 @@
 @import "../../../ui/style/vars";
 
-.content a, .content button, .content p {
-  font-size: 1.6rem; line-height: 2.4rem; font-family: var(--font-family-Roboto); color: var(--blueStone); text-decoration: none;
+.content{
+  @media (--lg) {
+    display:grid;
+  
+    grid-template-columns:60% 1.5rem calc(40% - 1.5rem);
+    grid-template-areas:
+    "list . aside";
+  }
+}
+
+.content .list{
+  grid-area: list;
+}
+
+.content .list article{
+  margin:0 0 1.5rem; padding:1.5rem;
+}
+
+.content .list article:last-of-type{
+  @media (--lg) {
+    margin:0;
+  }
+}
+
+.content .list article h2{
+  font-size:2.4rem; line-height:3.4rem;
+}
+
+.content .list article h2 a{
+  color:var(--darker); text-decoration:none;
+}
+
+.content .list article p{
+  font-size:1.8rem; line-height:2.4rem; color:var(--dark);
+}
+.content .aside{
+  grid-area: aside;
+
+  padding:1.5rem 0;
+  background:var(--white);
 }

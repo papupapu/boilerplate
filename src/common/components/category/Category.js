@@ -10,7 +10,7 @@ import categoryFetchParams from '../../router/fetchParams/category';
 import { fetchCategoryListing } from '../../redux/actions/category-actions';
 import { getCurrentCategory } from '../../helpers';
 
-// import './style/category.css';
+import '../home/style/home.css';
 
 const propTypes = {
   shouldFetch: PropTypes.bool,
@@ -163,26 +163,26 @@ class Category extends Component {
         modal={modal}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
-        <p>
-          <Link to="/">
-            {title}
-          </Link>
-        </p>
-        {
-          category[slug]
-          && category[slug].articles.map(article => (
-            <article key={`${slug}_article_${Math.random()}`}>
-              <h2>
-                <Link to={article.url}>
-                  {article.title}
-                </Link>
-              </h2>
-              <p>
-                {article.subtitle}
-              </p>
-            </article>
-          ))
-        }
+        <section className="list">
+          {
+            category[slug]
+            && category[slug].articles.map(article => (
+              <article key={`${slug}_article_${Math.random()}`}>
+                <h2>
+                  <Link to={article.url}>
+                    {article.title}
+                  </Link>
+                </h2>
+                <p>
+                  {article.subtitle}
+                </p>
+              </article>
+            ))
+          }
+        </section>
+        <section className="aside">
+          aside
+        </section>
       </Page>
     );
   }

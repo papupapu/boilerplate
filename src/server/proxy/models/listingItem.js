@@ -10,6 +10,7 @@ class ListingItem {
       heading,
       body,
     } = article;
+    this.id = id;
     this.category = category;
     this.url = getArticlelUrl(category, id);
     this.title = heading.title;

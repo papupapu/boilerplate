@@ -137,29 +137,26 @@ class Home extends Component {
         modal={modal}
         toggleSiteHiddenComponents={toggleSiteHiddenComponents}
       >
-        {
-          'title' in home
-          && (
-            <p>
-              <Link to="/">
-                {home.title}
-              </Link>
-            </p>
-          )
-        }
-        {
-          'articles' in home
-          && home.articles.map(article => (
-            <article key={`${home.slug}_article_${Math.random()}`}>
-              <h2>
-                {article.title}
-              </h2>
-              <p>
-                {article.subtitle}
-              </p>
-            </article>
-          ))
-        }
+        <section className="list">
+          {
+            'articles' in home
+            && home.articles.map(article => (
+              <article key={`${home.slug}_article_${Math.random()}`}>
+                <h2>
+                  <Link to={article.url}>
+                    {article.title}
+                  </Link>
+                </h2>
+                <p>
+                  {article.subtitle}
+                </p>
+              </article>
+            ))
+          }
+        </section>
+        <section className="aside">
+          aside
+        </section>
       </Page>
     );
   }

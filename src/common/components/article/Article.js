@@ -20,6 +20,7 @@ const propTypes = {
   articleId: PropTypes.string,
   categorySlug: PropTypes.string,
   article: PropTypes.instanceOf(Object),
+  category: PropTypes.instanceOf(Object),
   // location: PropTypes.instanceOf(Object),
 };
 
@@ -32,6 +33,7 @@ const defaultProps = {
   articleId: '',
   categorySlug: '',
   article: {},
+  category: {},
   // location: {},
 };
 
@@ -54,6 +56,7 @@ class Article extends Component {
       shouldFetch,
       actions,
       articleId,
+      category,
     } = this.props;
     const {
       currentCategory,
@@ -67,6 +70,12 @@ class Article extends Component {
           },
         ),
       );
+    } else {
+      const fromCategory = category[currentCategory.slug].articles
+        .filter(article => article.id === articleId);
+      if (fromCategory.length === 1) {
+        actions.setArticleFromCategory(fromCategory[0]);
+      }
     }
   }
 

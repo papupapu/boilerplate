@@ -1,5 +1,6 @@
 const Types = {
   FETCH_ARTICLE: 'FETCH_ARTICLE',
+  SET_ARTICLE_FROM_CATEGORY: 'SET_ARTICLE_FROM_CATEGORY',
 };
 
 export default Types;

@@ -108,7 +108,7 @@ svg{
   } 
   @media (--xl) {
     padding:0 5rem;
-  }    
+  }
 }
 
 #header h1{
@@ -339,6 +339,23 @@ svg{
 */
 
 .content{
+
+  padding:0 0 1.5rem;
+
+  @media (--sm) {
+    padding:1.5rem;
+  }
+
+  @media (--md) {
+    padding:2rem;
+  }
+  @media (--lg) {
+    padding:1.5rem 3.5rem;
+  } 
+  @media (--xl) {
+    padding:1.5rem 5rem;
+  }  
+
   @apply --stanrdard-transition;
 }
 

@@ -28,6 +28,18 @@ export function fetchArticle(params) {
   };
 }
 
-export function genericAction() {
-  return {};
+export function setArticleFromCategory(articleFromCategory) {
+  return (dispatch) => {
+    dispatch(
+      {
+        type: Types.SET_ARTICLE_FROM_CATEGORY,
+        payload: Object.assign(
+          {},
+          {
+            article: articleFromCategory,
+          },
+        ),
+      },
+    );
+  };
 }
